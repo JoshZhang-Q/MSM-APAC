@@ -565,21 +565,24 @@ body {
       <div class="crew-section">
         <div class="crew-head-row">
           <span class="crew-title">Crew</span>
-          <button class="add-btn">+</button>
+          <button class="add-btn" onclick="document.getElementById('add-crew-modal').style.display='flex'">+</button>
         </div>
-        <div class="crew-col-head"><span></span><span>First Name</span><span>Family Name</span><span></span></div>
-        <div class="crew-row"><span class="crew-role">Supervisor</span><span class="crew-name">Russel</span><span class="crew-name">Morris</span><button class="sig-dot signed" onclick="openCrewSig('Russel Morris')"></button></div>
-        <div class="crew-row"><span class="crew-role">Crew Member</span><span class="crew-name">John</span><span class="crew-name">William</span><button class="sig-dot pending" onclick="openCrewSig('John William')"></button></div>
-        <div class="crew-row"><span class="crew-role">Crew Member</span><span class="crew-name">Lee Siam</span><span class="crew-name">Long</span><button class="sig-dot pending" onclick="openCrewSig('Lee Siam Long')"></button></div>
-        <div class="crew-row"><span class="crew-role">Crew Member</span><span class="crew-name">John</span><span class="crew-name">Adam</span><button class="sig-dot pending" onclick="openCrewSig('John Adam')"></button></div>
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr 28px 28px;padding:4px 14px;font-size:10px;color:#999;font-weight:600"><span></span><span>First Name</span><span>Family Name</span><span></span><span></span></div>
+        <div id="crew-list">
+        <div class="crew-row" style="grid-template-columns:80px 1fr 1fr 28px 28px"><span class="crew-role">Supervisor</span><span class="crew-name">Russel</span><span class="crew-name">Morris</span><button class="sig-dot signed" onclick="openCrewSig('Russel Morris')"></button><button onclick="openDelete('Russel Morris', this)" style="background:none;border:none;color:#CC3333;font-size:16px;cursor:pointer;padding:0">×</button></div>
+        <div class="crew-row" style="grid-template-columns:80px 1fr 1fr 28px 28px"><span class="crew-role">Crew Member</span><span class="crew-name">John</span><span class="crew-name">William</span><button class="sig-dot pending" onclick="openCrewSig('John William')"></button><button onclick="openDelete('John William', this)" style="background:none;border:none;color:#CC3333;font-size:16px;cursor:pointer;padding:0">×</button></div>
+        <div class="crew-row" style="grid-template-columns:80px 1fr 1fr 28px 28px"><span class="crew-role">Crew Member</span><span class="crew-name">Lee Siam</span><span class="crew-name">Long</span><button class="sig-dot pending" onclick="openCrewSig('Lee Siam Long')"></button><button onclick="openDelete('Lee Siam Long', this)" style="background:none;border:none;color:#CC3333;font-size:16px;cursor:pointer;padding:0">×</button></div>
+        <div class="crew-row" style="grid-template-columns:80px 1fr 1fr 28px 28px"><span class="crew-role">Crew Member</span><span class="crew-name">John</span><span class="crew-name">Adam</span><button class="sig-dot pending" onclick="openCrewSig('John Adam')"></button><button onclick="openDelete('John Adam', this)" style="background:none;border:none;color:#CC3333;font-size:16px;cursor:pointer;padding:0">×</button></div>
+        </div>
       </div>
       <div class="crew-section">
         <div class="crew-head-row">
           <span class="crew-title">Allocated Vehicles</span>
-          <button class="add-btn">+</button>
+          <button class="add-btn" onclick="document.getElementById('add-vehicle-modal').style.display='flex'">+</button>
         </div>
         <div class="vehicle-row">Hino 22ft Truck Reg# HJT 8561</div>
       </div>
+      <button onclick="alert('Email sent to all crew members!')" style="display:block;width:100%;background:#0E7490;color:white;border:none;border-radius:8px;padding:14px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;margin-top:16px">📧 Send Email to All Crew</button>
     </div>
 
     <!-- Crew Sig Modal -->
@@ -592,9 +595,63 @@ body {
         <div class="crew-sig-area"><span>sign above the line</span></div>
         <div class="crew-sig-divider">sign above the line</div>
         <div class="crew-sig-input"><input type="text" placeholder="Printed Name"></div>
+        <div class="crew-sig-input"><input type="email" placeholder="Email Address"></div>
         <div class="crew-sig-btns">
           <button class="crew-sig-save" onclick="document.getElementById('crew-sig-modal').classList.remove('show')">Save</button>
           <button class="crew-sig-cancel" onclick="document.getElementById('crew-sig-modal').classList.remove('show')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Crew Modal -->
+  <div id="add-crew-modal" style="display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.45)">
+    <div style="background:white;border-radius:12px;width:100%;overflow:hidden">
+      <div style="background:#0D1B3E;padding:14px 16px">
+        <h3 style="color:white;font-size:14px;font-weight:600;margin:0">Add Crew Member</h3>
+      </div>
+      <div style="padding:16px">
+        <div style="margin-bottom:12px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:600;text-transform:uppercase">Role</div>
+          <select style="width:100%;border:1px solid #DDD;border-radius:4px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif;color:#333;background:white">
+            <option>Supervisor</option>
+            <option>Crew Member</option>
+          </select>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:600;text-transform:uppercase">First Name</div>
+          <input type="text" placeholder="First Name" style="width:100%;border:1px solid #DDD;border-radius:4px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif">
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:600;text-transform:uppercase">Family Name</div>
+          <input type="text" placeholder="Family Name" style="width:100%;border:1px solid #DDD;border-radius:4px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onclick="document.getElementById('add-crew-modal').style.display='none'" style="background:#0E7490;color:white;border:none;border-radius:6px;padding:11px;font-size:13px;font-family:Inter,sans-serif;cursor:pointer">Add</button>
+          <button onclick="document.getElementById('add-crew-modal').style.display='none'" style="background:white;color:#666;border:1px solid #DDD;border-radius:6px;padding:11px;font-size:13px;font-family:Inter,sans-serif;cursor:pointer">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Vehicle Modal -->
+  <div id="add-vehicle-modal" style="display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,0.45)">
+    <div style="background:white;border-radius:12px;width:100%;overflow:hidden">
+      <div style="background:#0D1B3E;padding:14px 16px">
+        <h3 style="color:white;font-size:14px;font-weight:600;margin:0">Add Vehicle</h3>
+      </div>
+      <div style="padding:16px">
+        <div style="margin-bottom:12px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:600;text-transform:uppercase">Vehicle Type</div>
+          <input type="text" placeholder="e.g. Hino 22ft Truck" style="width:100%;border:1px solid #DDD;border-radius:4px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif">
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;font-weight:600;text-transform:uppercase">Registration Number</div>
+          <input type="text" placeholder="e.g. HJT 8561" style="width:100%;border:1px solid #DDD;border-radius:4px;padding:8px 10px;font-size:13px;font-family:Inter,sans-serif">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onclick="document.getElementById('add-vehicle-modal').style.display='none'" style="background:#0E7490;color:white;border:none;border-radius:6px;padding:11px;font-size:13px;font-family:Inter,sans-serif;cursor:pointer">Add</button>
+          <button onclick="document.getElementById('add-vehicle-modal').style.display='none'" style="background:white;color:#666;border:1px solid #DDD;border-radius:6px;padding:11px;font-size:13px;font-family:Inter,sans-serif;cursor:pointer">Cancel</button>
         </div>
       </div>
     </div>
@@ -653,6 +710,21 @@ function selectYN(btn, group) {
 function openCrewSig(name) {
   document.getElementById('crew-sig-name').textContent = 'RP # 345789 · ' + name;
   document.getElementById('crew-sig-modal').classList.add('show');
+}
+
+let deleteTarget = null;
+function openDelete(name, btn) {
+  deleteTarget = btn.closest('.crew-row');
+  document.getElementById('delete-crew-name').textContent = 'Remove ' + name + ' from this job?';
+  document.getElementById('delete-crew-modal').classList.add('show');
+}
+function confirmDelete() {
+  if (deleteTarget) deleteTarget.remove();
+  deleteTarget = null;
+  document.getElementById('delete-crew-modal').classList.remove('show');
+}
+function addCrew() {
+  document.getElementById('add-crew-modal').classList.remove('show');
 }
 </script>
 </body>
